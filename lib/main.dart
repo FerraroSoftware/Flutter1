@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intro_project/quiz.dart';
 import './question.dart';
 import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 // void main() {
 
@@ -29,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
   // List will never change
-  final questions = const [
+  final _questions = const [
     // Creating map shorthand, Map alterative
     {
       'questionText': 'What\'s your favoite color?',
@@ -52,8 +55,8 @@ class _MyAppState extends State<MyApp> {
       _questionIndex = _questionIndex + 1;
     });
 
-    if (_questionIndex < questions.length) {
-      print('We have more questions!');
+    if (_questionIndex < _questions.length) {
+      print('We have more _questions!');
     }
   }
 
@@ -66,29 +69,13 @@ class _MyAppState extends State<MyApp> {
           title: Text('My first App'),
         ),
         // Create if else check to fix fall off at end
-        body: _questionIndex < questions.length
-            ? Column(
-                children: [
-                  //!!! Use custom Question widget here
-                  // Takes in String
-                  Question(
-                    // Access map 0, 1, 2
-                    // Then key 'questionText'
-                    questions[_questionIndex]['questionText'],
-                  ),
-
-                  // Applies to every element in the map
-                  // Need to tell map as List of strings, doesn't beleive me
-                  // ... == spreadoperator
-                  ...(questions[_questionIndex]['answers'] as List<String>)
-                      .map((answer) {
-                    return Answer(_answerQuestion, answer);
-                  }).toList()
-                ],
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
               )
-            : Center(
-                child: Text('You did it!'),
-              ),
+            : Result()
       ),
     );
   }
