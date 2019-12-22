@@ -29,31 +29,52 @@ class MyApp extends StatefulWidget {
 // MyAppState == public
 // _MyAppState == Can now only be used in this file where this class lives
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
 
   // List will never change
   // This list of maps is used across the widgets
   final _questions = const [
     // Creating map shorthand, Map alterative
     {
-      'questionText': 'What\'s your favoite color?',
-      'answers': ['Black', 'Red', 'Green', 'White']
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Dog', 'Elephant', 'Lion']
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Lion', 'score': 9},
+      ],
     },
     {
       'questionText': 'What\'s your favorite food?',
-      'answers': ['Steak', 'Pizza', 'Pasta', 'Chicken']
+      'answers': [
+        {'text': 'Steak', 'score': 10},
+        {'text': 'Pizza', 'score': 4},
+        {'text': 'Pasta', 'score': 2},
+        {'text': 'Chicken', 'score': 5},
+      ],
     },
   ];
 
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
   // Increment question index in map to go through list
   // When complete need to handle response
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     // !!!Connection 3 :: using setState()
     // Calls the build() method again
+    
+    // Update the score throughout quiz 
+    _totalScore += score;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -64,18 +85,17 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My first App'),
-        ),
-        // Create if else check to fix fall off at end
-        body: _questionIndex < _questions.length
-            ? Quiz(
-                answerQuestion: _answerQuestion,
-                questionIndex: _questionIndex,
-                questions: _questions,
-              )
-            : Result()
-      ),
+          appBar: AppBar(
+            title: Text('My first App'),
+          ),
+          // Create if else check to fix fall off at end
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  questionIndex: _questionIndex,
+                  questions: _questions,
+                )
+              : Result()),
     );
   }
 }

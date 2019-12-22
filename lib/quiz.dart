@@ -29,8 +29,10 @@ class Quiz extends StatelessWidget {
         // Applies to every element in the map
         // Need to tell map as List of strings, doesn't beleive me
         // ... == spreadoperator
-        ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(questions[questionIndex]['answers'] as List<Map<String, Object>>).map((answer) {
+          // Get the address of answerQuestion and forward to Answer
+          // Anoynmous function
+          return Answer(() => answerQuestion(answer['score']), answer['text']);
         }).toList()
       ],
     );
