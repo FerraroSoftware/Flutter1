@@ -29,7 +29,6 @@ class MyApp extends StatefulWidget {
 // MyAppState == public
 // _MyAppState == Can now only be used in this file where this class lives
 class _MyAppState extends State<MyApp> {
-
   // List will never change
   // This list of maps is used across the widgets
   final _questions = const [
@@ -66,13 +65,22 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   var _totalScore = 0;
 
+  // When we reset quiz, need to reset scores and indexes
+  // and refresh the Quiz() 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   // Increment question index in map to go through list
   // When complete need to handle response
   void _answerQuestion(int score) {
     // !!!Connection 3 :: using setState()
     // Calls the build() method again
-    
-    // Update the score throughout quiz 
+
+    // Update the score throughout quiz
     _totalScore += score;
 
     setState(() {
@@ -95,8 +103,8 @@ class _MyAppState extends State<MyApp> {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-                // Forward total score to the result widget
-              : Result(_totalScore)),
+              // Forward total score to the result widget
+              : Result(_totalScore, _resetQuiz)),
     );
   }
 }
