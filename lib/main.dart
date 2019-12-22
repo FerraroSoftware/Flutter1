@@ -95,7 +95,8 @@ class _MyAppState extends State<MyApp> {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result()),
+                // Forward total score to the result widget
+              : Result(_totalScore)),
     );
   }
 }
