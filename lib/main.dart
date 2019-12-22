@@ -28,6 +28,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
+  // List will never change
+  final questions = const [
+    // Creating map shorthand, Map alterative
+    {
+      'questionText': 'What\'s your favoite color?',
+      'answers': ['Black', 'Red', 'Green', 'White']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': ['Rabbit', 'Dog', 'Elephant', 'Lion']
+    },
+    {
+      'questionText': 'What\'s your favorite food?',
+      'answers': ['Steak', 'Pizza', 'Pasta', 'Chicken']
+    },
+  ];
+
   void _answerQuestion() {
     // !!!Connection 3 :: using setState()
     // Calls the build() method again
@@ -35,52 +52,43 @@ class _MyAppState extends State<MyApp> {
       _questionIndex = _questionIndex + 1;
     });
 
-    print(_questionIndex);
+    if (_questionIndex < questions.length) {
+      print('We have more questions!');
+    }
   }
 
   // Overriding build method of statelesswidget
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      // Creating map shorthand, Map alterative
-      {
-        'questionText': 'What\'s your favoite color?',
-        'answers': ['Black', 'Red', 'Green', 'White']
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answers': ['Rabbit', 'Dog', 'Elephant', 'Lion']
-      },
-      {
-        'questionText': 'What\'s your favorite food?',
-        'answers': ['Steak', 'Pizza', 'Pasta', 'Chicken']
-      },
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My first App'),
         ),
-        body: Column(
-          children: [
-            //!!! Use custom Question widget here
-            // Takes in String
-            Question(
-              // Access map 0, 1, 2
-              // Then key 'questionText' 
-              questions[_questionIndex]['questionText'],
-            ),
-            
-            // Applies to every element in the map
-            // Need to tell map as List of strings, doesn't beleive me 
-            // ... == spreadoperator
-            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
+        // Create if else check to fix fall off at end
+        body: _questionIndex < questions.length
+            ? Column(
+                children: [
+                  //!!! Use custom Question widget here
+                  // Takes in String
+                  Question(
+                    // Access map 0, 1, 2
+                    // Then key 'questionText'
+                    questions[_questionIndex]['questionText'],
+                  ),
 
-          ],
-        ),
+                  // Applies to every element in the map
+                  // Need to tell map as List of strings, doesn't beleive me
+                  // ... == spreadoperator
+                  ...(questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) {
+                    return Answer(_answerQuestion, answer);
+                  }).toList()
+                ],
+              )
+            : Center(
+                child: Text('You did it!'),
+              ),
       ),
     );
   }
