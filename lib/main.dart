@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
   // List will never change
+  // This list of maps is used across the widgets
   final _questions = const [
     // Creating map shorthand, Map alterative
     {
@@ -48,16 +49,14 @@ class _MyAppState extends State<MyApp> {
     },
   ];
 
+  // Increment question index in map to go through list
+  // When complete need to handle response
   void _answerQuestion() {
     // !!!Connection 3 :: using setState()
     // Calls the build() method again
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
-
-    if (_questionIndex < _questions.length) {
-      print('We have more _questions!');
-    }
   }
 
   // Overriding build method of statelesswidget
