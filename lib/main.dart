@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+import './answer.dart';
 
 // void main() {
 
@@ -59,26 +60,15 @@ class _MyAppState extends State<MyApp> {
               Question(
                 questions[_questionIndex],
               ),
-              RaisedButton(
-                child: Text('Answer 1'),
-                // Passing a pointer to flutter to the function to execute
-                // calling answerQuestion() gives the result of the function at execution which is void
-                // which is garbage.
-                onPressed: _answerQuestion,
+              // Callback to pass answerQuestion() to Answer Widget
+              // Fowarding pointer to constrctor 
+              Answer(_answerQuestion),
+              Answer(_answerQuestion),
+              Answer(_answerQuestion),
+              ],
               ),
-              RaisedButton(
-                child: Text('Answer 2'),
-                onPressed: () => print('Answer 2'),
-              ),
-              RaisedButton(
-                child: Text('Answer 3'),
-                onPressed: () {
-                  print('Answer 3 Chosen');
-                },
-              ),
-            ],
-          )),
-    );
+          ),
+          );
   }
 }
 
