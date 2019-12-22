@@ -4,13 +4,15 @@ Quick Intro Project to reference back to
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Welcome to a quick quiz! Answer the following questions and see your score.
 
-Overview
+Overview Building App from scratch.
 
-- Building App from scratch
 - Building Widget Tree
 - Adding Layout Widgets
 - Connecting Functions and Buttons
 - Creating Custom Widget (ex: quesiton widget)
 - Basic styling
+- Updating Stateful Widgets
+- Passing callback functions
+- Outputting Widgets Conditionally
